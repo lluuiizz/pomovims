@@ -1,9 +1,18 @@
 local vim = vim
 local api = vim.api
+
+local M = {}
+
 FloatingWindow = {}
-FloatingWindow.___index = FloatingWindow
+FloatingWindow.__index = FloatingWindow
 
 local buf = api.nvim_create_buf(false, true)
+
+local function PomoVims(float_setup)
+    local win = vim.api.nvim_open_win(buf, true, float_setup)
+end
+
+
 function FloatingWindow.setup(opts)
      local self = setmetatable({}, FloatingWindow)
      opts = opts or {width = 120, height = 30, style = 'minimal'}
@@ -25,10 +34,12 @@ function FloatingWindow.setup(opts)
 
  end
 
+ function M.setup(opts)
+     FloatingWindow.setup(opts)
+ end
+
+ return M
 
 
-function PomoVims(float_setup) 
-    local win = vim.api.nvim_open_win(buf, true, float_setup)
-end
 
 
